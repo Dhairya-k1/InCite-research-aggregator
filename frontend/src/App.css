@@ -1,0 +1,1120 @@
+/* =====================================================
+   GLOBAL
+===================================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f7f8fc;
+    color: #111827;
+}
+
+button,
+input {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   APP
+===================================================== */
+
+.app {
+    min-height: 100vh;
+}
+
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+.navbar {
+    height: 72px;
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 7%;
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 800;
+    color: #111827;
+    cursor: pointer;
+}
+
+.nav-links {
+    display: flex;
+    gap: 35px;
+    color: #374151;
+    font-size: 16px;
+}
+
+.nav-links span {
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.nav-links span:hover {
+    color: #4f46e5;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+    min-height: 430px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 60px 20px;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #e9e7ff 0%,
+            #f7f8fc 45%,
+            #f7f8fc 100%
+        );
+}
+
+.hero h1 {
+    font-size: clamp(42px, 6vw, 76px);
+    line-height: 1.02;
+    letter-spacing: -3px;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 25px;
+}
+
+.hero p {
+    font-size: 18px;
+    color: #6b7280;
+    margin-bottom: 30px;
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.search-form {
+    width: min(700px, 90%);
+
+    display: flex;
+
+    background: white;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 14px;
+
+    padding: 6px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.search-form input {
+    flex: 1;
+
+    border: none;
+    outline: none;
+
+    padding: 15px 18px;
+
+    font-size: 16px;
+
+    background: transparent;
+}
+
+.search-form button {
+    border: none;
+
+    background: #4f46e5;
+
+    color: white;
+
+    padding: 0 25px;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    transition: background 0.2s ease;
+}
+
+.search-form button:hover {
+    background: #4338ca;
+}
+
+
+/* =====================================================
+   RESEARCH CONTAINER
+===================================================== */
+
+.research-container {
+    width: min(1200px, 90%);
+
+    margin: 60px auto;
+
+    min-height: 500px;
+}
+
+
+/* =====================================================
+   RESULTS HEADER
+===================================================== */
+
+.results-header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 30px;
+}
+
+.results-header h2 {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.results-header p {
+    color: #6b7280;
+    font-size: 15px;
+}
+
+.result-count {
+    background: #eef2ff;
+
+    color: #4338ca;
+
+    padding: 9px 15px;
+
+    border-radius: 20px;
+
+    font-weight: 600;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   PAPER GRID
+===================================================== */
+
+.papers-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 24px;
+}
+
+
+/* =====================================================
+   PAPER CARD
+===================================================== */
+
+.paper-card {
+    background: white;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 18px;
+
+    padding: 26px;
+
+    display: flex;
+    flex-direction: column;
+
+    min-height: 360px;
+
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.04);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.paper-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =====================================================
+   CARD TOP
+===================================================== */
+
+.card-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 18px;
+}
+
+.source-badge {
+    display: inline-block;
+
+    background: #eef2ff;
+
+    color: #4338ca;
+
+    padding: 6px 10px;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.4px;
+}
+
+.year {
+    color: #6b7280;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   PAPER TITLE
+===================================================== */
+
+.paper-card h3 {
+    font-size: 21px;
+
+    line-height: 1.35;
+
+    color: #111827;
+
+    margin-bottom: 12px;
+}
+
+
+/* =====================================================
+   AUTHORS
+===================================================== */
+
+.authors {
+    color: #6b7280;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    margin-bottom: 18px;
+}
+
+
+/* =====================================================
+   ABSTRACT
+===================================================== */
+
+.abstract {
+    color: #4b5563;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+
+    flex: 1;
+
+    margin-bottom: 20px;
+}
+
+
+/* =====================================================
+   CARD BOTTOM
+===================================================== */
+
+.card-bottom {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid #f0f0f0;
+}
+
+.citation {
+    color: #6b7280;
+
+    font-size: 13px;
+}
+
+.card-bottom button {
+    border: none;
+
+    background: #111827;
+
+    color: white;
+
+    padding: 10px 15px;
+
+    border-radius: 9px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition: background 0.2s ease;
+}
+
+.card-bottom button:hover {
+    background: #4f46e5;
+}
+
+
+/* =====================================================
+   STATUS / LOADING
+===================================================== */
+
+.status-message {
+    min-height: 300px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    color: #6b7280;
+}
+
+.status-message h3 {
+    color: #111827;
+
+    font-size: 22px;
+
+    margin-bottom: 8px;
+}
+
+
+/* =====================================================
+   LOADER
+===================================================== */
+
+.loader {
+    width: 40px;
+    height: 40px;
+
+    border: 4px solid #e5e7eb;
+
+    border-top: 4px solid #4f46e5;
+
+    border-radius: 50%;
+
+    animation: spin 0.8s linear infinite;
+
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+.error-message {
+    background: #fff1f2;
+
+    border: 1px solid #fecdd3;
+
+    border-radius: 14px;
+
+    padding: 25px;
+
+    text-align: center;
+
+    color: #9f1239;
+}
+
+.error-message h3 {
+    margin-bottom: 8px;
+}
+
+.error-message button {
+    margin-top: 15px;
+
+    border: none;
+
+    background: #be123c;
+
+    color: white;
+
+    padding: 10px 18px;
+
+    border-radius: 8px;
+}
+
+
+/* =====================================================
+   PAPER DETAILS
+===================================================== */
+
+.paper-details {
+    width: min(1000px, 90%);
+
+    margin: 50px auto;
+
+    padding-bottom: 80px;
+}
+
+.back-button {
+    border: none;
+
+    background: transparent;
+
+    color: #4f46e5;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    margin-bottom: 30px;
+}
+
+.paper-source {
+    display: inline-block;
+
+    background: #eef2ff;
+
+    color: #4338ca;
+
+    padding: 7px 12px;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    margin-bottom: 18px;
+}
+
+.paper-details h1 {
+    font-size: 42px;
+
+    line-height: 1.15;
+
+    margin-bottom: 25px;
+
+    color: #111827;
+}
+
+.paper-meta {
+    display: flex;
+
+    gap: 10px;
+
+    margin-bottom: 10px;
+
+    color: #4b5563;
+
+    font-size: 15px;
+}
+
+.paper-meta strong {
+    color: #111827;
+}
+
+.paper-details section {
+    background: white;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 16px;
+
+    padding: 28px;
+
+    margin-top: 30px;
+}
+
+.paper-details section h2 {
+    font-size: 23px;
+
+    margin-bottom: 15px;
+}
+
+.paper-details section p {
+    color: #4b5563;
+
+    line-height: 1.8;
+}
+
+
+/* =====================================================
+   TOPICS
+===================================================== */
+
+.topics {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+}
+
+.topic {
+    background: #f3f4f6;
+
+    color: #374151;
+
+    padding: 7px 12px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   PAPER ACTIONS
+===================================================== */
+
+.paper-actions {
+    display: flex;
+
+    gap: 12px;
+}
+
+.primary-button,
+.secondary-button {
+    text-decoration: none;
+
+    padding: 12px 18px;
+
+    border-radius: 9px;
+
+    font-weight: 600;
+
+    font-size: 14px;
+}
+
+.primary-button {
+    background: #4f46e5;
+
+    color: white;
+}
+
+.secondary-button {
+    background: #f3f4f6;
+
+    color: #111827;
+}
+
+
+/* =====================================================
+   CHAT SECTION
+===================================================== */
+
+.chat-section {
+    background:
+        linear-gradient(
+            135deg,
+            #eef2ff,
+            #f5f3ff
+        ) !important;
+
+    border: 1px solid #c7d2fe !important;
+}
+
+.chat-section button {
+    margin-top: 20px;
+
+    border: none;
+
+    background: #4f46e5;
+
+    color: white;
+
+    padding: 12px 20px;
+
+    border-radius: 9px;
+
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+    margin-top: 80px;
+
+    padding: 35px 20px;
+
+    text-align: center;
+
+    background: #111827;
+
+    color: #9ca3af;
+
+    font-size: 14px;
+
+    line-height: 1.8;
+}
+
+footer p:first-child {
+    color: white;
+
+    font-weight: 600;
+
+    margin-bottom: 4px;
+}
+
+
+/* =====================================================
+   RESPONSIVE DESIGN
+===================================================== */
+
+@media (max-width: 800px) {
+
+    .navbar {
+        padding: 0 5%;
+    }
+
+    .hero h1 {
+        font-size: 45px;
+
+        letter-spacing: -1.5px;
+    }
+
+    .papers-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .results-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+    .paper-details h1 {
+        font-size: 32px;
+    }
+}
+
+
+@media (max-width: 550px) {
+
+    .nav-links {
+        gap: 15px;
+    }
+
+    .hero {
+        padding: 50px 15px;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    .search-form {
+        flex-direction: column;
+
+        background: transparent;
+
+        border: none;
+
+        box-shadow: none;
+
+        gap: 10px;
+    }
+
+    .search-form input {
+        background: white;
+
+        border: 1px solid #d1d5db;
+
+        border-radius: 10px;
+
+        width: 100%;
+    }
+
+    .search-form button {
+        height: 48px;
+
+        width: 100%;
+    }
+
+    .paper-card {
+        padding: 20px;
+    }
+
+    .card-bottom {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .card-bottom button {
+        width: 100%;
+    }
+
+    .paper-actions {
+        flex-direction: column;
+    }
+
+    .primary-button,
+    .secondary-button {
+        text-align: center;
+    }
+}
+/* =====================================================
+   ONBOARDING
+===================================================== */
+
+.onboarding {
+    min-height: calc(100vh - 72px);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 60px 20px;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #e9e7ff 0%,
+            #f7f8fc 50%,
+            #f7f8fc 100%
+        );
+}
+
+.onboarding-card {
+    width: min(700px, 95%);
+
+    background: white;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 24px;
+
+    padding: 50px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.08);
+}
+
+.onboarding-label,
+.personalized-label {
+    color: #4f46e5;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    margin-bottom: 15px;
+}
+
+.onboarding-card h1 {
+    font-size: 46px;
+
+    line-height: 1.1;
+
+    margin-bottom: 15px;
+
+    color: #111827;
+}
+
+.onboarding-description {
+    color: #6b7280;
+
+    line-height: 1.7;
+
+    margin-bottom: 35px;
+}
+
+.onboarding-card form {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.onboarding-card label {
+    color: #111827;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    margin-top: 12px;
+}
+
+.onboarding-card input,
+.onboarding-card select,
+.onboarding-card textarea {
+    width: 100%;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 10px;
+
+    padding: 14px;
+
+    font-size: 15px;
+
+    outline: none;
+
+    background: white;
+}
+
+.onboarding-card textarea {
+    resize: vertical;
+
+    line-height: 1.5;
+}
+
+.onboarding-card input:focus,
+.onboarding-card select:focus,
+.onboarding-card textarea:focus {
+    border-color: #6366f1;
+
+    box-shadow:
+        0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.discover-button {
+    border: none;
+
+    background: #4f46e5;
+
+    color: white;
+
+    padding: 15px 20px;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    margin-top: 20px;
+
+    cursor: pointer;
+}
+
+.discover-button:hover {
+    background: #4338ca;
+}
+
+.form-error {
+    background: #fff1f2;
+
+    color: #be123c;
+
+    border: 1px solid #fecdd3;
+
+    padding: 12px;
+
+    border-radius: 8px;
+
+    margin-top: 10px;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   PERSONALIZED RESEARCH HERO
+===================================================== */
+
+.research-hero {
+    padding: 70px 7%;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 40px;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            #e9e7ff,
+            #f7f8fc 55%
+        );
+}
+
+.research-hero h1 {
+    font-size: clamp(42px, 5vw, 65px);
+
+    line-height: 1.05;
+
+    letter-spacing: -2px;
+
+    margin-bottom: 20px;
+}
+
+.research-hero p {
+    color: #6b7280;
+
+    max-width: 600px;
+
+    line-height: 1.7;
+}
+
+.research-hero .search-form {
+    min-width: 420px;
+}
+
+
+/* =====================================================
+   PREFERENCE SUMMARY
+===================================================== */
+
+.preference-summary {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+    background: white;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 15px;
+
+    padding: 20px 24px;
+
+    margin-bottom: 40px;
+}
+
+.preference-summary strong {
+    display: block;
+
+    margin-bottom: 6px;
+}
+
+.preference-summary p {
+    color: #6b7280;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+.preference-summary button {
+    border: 1px solid #d1d5db;
+
+    background: white;
+
+    padding: 10px 15px;
+
+    border-radius: 8px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 800px) {
+
+    .research-hero {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .research-hero .search-form {
+        min-width: 0;
+
+        width: 100%;
+    }
+
+    .onboarding-card {
+        padding: 30px;
+    }
+
+    .onboarding-card h1 {
+        font-size: 36px;
+    }
+
+    .preference-summary {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+}
