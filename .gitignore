@@ -4,3 +4,7 @@
 !.env.example
 __pycache__/
 *.pyc
+tests
+local_qdrant_storage
+src
+scripts
