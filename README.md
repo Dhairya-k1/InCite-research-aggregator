@@ -682,9 +682,6 @@ Yet to be made.
 ### Completed
 
 * [x] RAG module architecture
-* [x] Project directory structure
-* [x] PDF parser design
-* [x] Page-level metadata design
 * [x] Fixed-size chunking
 * [x] Section-aware chunking
 * [x] Embeddings
@@ -696,6 +693,8 @@ Yet to be made.
 
 ### In Progress
 
+* [ ] Page-level metadata design
+* [ ] PDF parser design
 * [ ] Evaluation dataset
 * [ ] Recall@K
 * [ ] nDCG@K
