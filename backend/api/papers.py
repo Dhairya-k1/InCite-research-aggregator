@@ -16,10 +16,7 @@ async def get_latest_papers(
     limit: int = Query(10, ge=1, le=50, description="Max number of latest papers to return"),
     db: AsyncSession = Depends(get_db)
 ):
-    """
-    Returns most recently published papers for Vedant's Research Feed.
-    Adheres strictly to the Paper contract.
-    """
+
     return await paper_service.get_latest_papers(db=db, limit=limit)
 
 
