@@ -13,14 +13,7 @@ async def search_papers(
     req: SearchRequest,
     db: AsyncSession = Depends(get_db)
 ):
-    """
-    Search endpoint returning relevance-ranked papers.
-    Adheres strictly to team Search Contract:
-    {
-       "query": "...",
-       "results": [{"paper_id": "...", "title": "...", "score": 0.87}]
-    }
-    """
+
     return await search_service.search(
         db=db,
         query_text=req.query,
