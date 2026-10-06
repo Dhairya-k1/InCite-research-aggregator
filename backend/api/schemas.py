@@ -2,13 +2,8 @@ from datetime import datetime
 from typing import List, Optional
 from pydantic import BaseModel, Field
 
-
-# ---------------------------------------------------------
-# Team Defined Contracts (Page 6 & 7)
-# ---------------------------------------------------------
-
 class PaperContract(BaseModel):
-    """Canonical Paper object contract."""
+    #Canonical Paper object contract.
     paper_id: str
     title: str
     authors: List[str] = Field(default_factory=list)
@@ -28,7 +23,7 @@ class SearchResultItem(BaseModel):
 
 
 class SearchResponse(BaseModel):
-    """Search response contract."""
+    #Search response contract.
     query: str
     results: List[SearchResultItem] = Field(default_factory=list)
 
@@ -40,14 +35,9 @@ class RAGSource(BaseModel):
 
 
 class RAGResponse(BaseModel):
-    """RAG chat response contract."""
+    #RAG chat response contract.
     answer: str
     sources: List[RAGSource] = Field(default_factory=list)
-
-
-# ---------------------------------------------------------
-# Endpoint Request & Response Models
-# ---------------------------------------------------------
 
 class AuthorDetail(BaseModel):
     author_id: str
