@@ -156,22 +156,19 @@ class PaperService:
         return [self._to_contract(p) for p in papers]
 
     async def get_paper_news(self, db: AsyncSession, paper_id: str) -> List[PaperNewsItem]:
-        """Generates research highlights & news for a paper."""
+        """Builds a transparent news-style summary from stored paper metadata."""
         paper = await self.get_paper_by_id(db, paper_id)
         if not paper:
             return []
 
-        return [
-            PaperNewsItem(
-                headline=f"Key Findings: Breakthrough in {paper.title[:50]}",
-                summary=(
-                    f"New research reported under '{paper.title}' introduces significant methodology "
-                    f"improvements with measurable efficiency gains in {paper.primary_category or 'AI'}."
-                ),
-                significance_score=0.92,
-                published_at=paper.published_at
-            )
-        ]
+        abstract = (paper.abstract or "Abstract not available.").strip()
+        summary = abstract if len(abstract) <= 420 else abstract[:417].rsplit(" ", 1)[0] + "..."
+        return [PaperNewsItem(
+            headline=f"Research Brief: {paper.title[:80]}",
+            summary=summary,
+            significance_score=0.0,
+            published_at=paper.published_at
+        )]
 
     async def upsert_paper(
         self,

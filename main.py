@@ -19,6 +19,7 @@ from backend.api.indexing import router as indexing_router
 from backend.api.retrieval import router as retrieval_router
 from backend.api.evaluation import router as evaluation_router
 from backend.api.experiments import router as experiments_router
+from backend.api.jobs import router as jobs_router
 from backend.observability import observe_request
 
 logging.basicConfig(
@@ -122,6 +123,7 @@ app.include_router(indexing_router)
 app.include_router(retrieval_router)
 app.include_router(evaluation_router)
 app.include_router(experiments_router)
+app.include_router(jobs_router)
 
 
 if __name__ == "__main__":
