@@ -1,9 +1,11 @@
 from typing import Optional
+import os
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
 from backend.database.models import Paper
 from backend.api.schemas import RAGResponse, RAGSource
+from backend.services.evidence_service import evidence_service
 
 
 class RAGService:
@@ -15,30 +17,52 @@ class RAGService:
         query: str,
         paper_id: Optional[str] = None
     ) -> RAGResponse:
-        target_paper = None
-        if paper_id:
-            res = await db.execute(select(Paper).where(Paper.paper_id == paper_id))
-            target_paper = res.scalars().first()
+        evidence = await evidence_service.search(db, query, limit=6, paper_id=paper_id)
+        if not evidence:
+            return RAGResponse(
+                answer="I could not find indexed evidence for this question. Ingest and process the relevant paper PDF first.",
+                sources=[]
+            )
 
-        if not target_paper:
-            res = await db.execute(select(Paper).limit(1))
-            target_paper = res.scalars().first()
+        # Use Gemini when explicitly configured; otherwise provide a faithful
+        # extractive answer so local development never fabricates citations.
+        answer_text = self._extractive_answer(query, evidence)
+        api_key = os.getenv("GEMINI_API_KEY")
+        if api_key:
+            try:
+                from google import genai
+                from google.genai import types
+                client = genai.Client(api_key=api_key)
+                context = "\n\n".join(
+                    f"[{i + 1}] {item['text']} (paper={item['paper_id']}, section={item['section']}, page={item['page']})"
+                    for i, item in enumerate(evidence)
+                )
+                prompt = (
+                    "Answer the research question using only the evidence below. "
+                    "If the evidence is insufficient, say so. Do not invent facts or citations.\n\n"
+                    f"Question: {query}\n\nEvidence:\n{context}"
+                )
+                response = client.models.generate_content(
+                    model=os.getenv("GEMINI_MODEL", "gemini-2.5-flash"), contents=prompt,
+                    config=types.GenerateContentConfig(temperature=0.1)
+                )
+                if response.text:
+                    answer_text = response.text.strip()
+            except Exception:
+                # Retrieval remains useful if an API quota/model is unavailable.
+                pass
 
-        paper_title = target_paper.title if target_paper else "the referenced paper"
-        pid = target_paper.paper_id if target_paper else (paper_id or "arxiv:1706.03762")
-
-        answer_text = (
-            f"Based on the analysis of '{paper_title}', the proposed method outperforms the baseline "
-            f"by replacing recurrent layers with multi-head self-attention mechanisms, allowing significant "
-            f"parallelization and superior gradient propagation across long contexts."
-        )
-
-        sources = [
-            RAGSource(paper_id=pid, section="Methodology", page=5),
-            RAGSource(paper_id=pid, section="Experiments & Results", page=8),
-        ]
-
+        sources = [RAGSource(paper_id=item["paper_id"], section=item["section"], page=item["page"])
+                   for item in evidence]
         return RAGResponse(answer=answer_text, sources=sources)
+
+    @staticmethod
+    def _extractive_answer(query: str, evidence: list[dict]) -> str:
+        snippets = []
+        for item in evidence[:3]:
+            text = item["text"].replace("\n", " ").strip()
+            snippets.append(text[:500] + ("..." if len(text) > 500 else ""))
+        return "Based on the indexed evidence: " + " ".join(snippets)
 
 
 rag_service = RAGService()
