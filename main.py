@@ -17,6 +17,7 @@ from backend.api.health import router as health_router
 from backend.api.processing import router as processing_router
 from backend.api.indexing import router as indexing_router
 from backend.api.retrieval import router as retrieval_router
+from backend.api.evaluation import router as evaluation_router
 from backend.observability import observe_request
 
 logging.basicConfig(
@@ -118,6 +119,7 @@ app.include_router(health_router)
 app.include_router(processing_router)
 app.include_router(indexing_router)
 app.include_router(retrieval_router)
+app.include_router(evaluation_router)
 
 
 if __name__ == "__main__":
