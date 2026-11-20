@@ -4,11 +4,14 @@ from backend.database.models import DocumentChunk
 
 
 class EvidenceService:
-    async def search(self, db: AsyncSession, query: str, limit: int = 8, paper_id: str | None = None):
+    async def search(self, db: AsyncSession, query: str, limit: int = 8, paper_id: str | None = None,
+                     strategy: str | None = None):
         terms = [term.strip() for term in query.lower().split() if len(term.strip()) > 2]
         statement = select(DocumentChunk)
         if paper_id:
             statement = statement.where(DocumentChunk.paper_id == paper_id)
+        if strategy:
+            statement = statement.where(DocumentChunk.strategy == strategy)
         if terms:
             statement = statement.where(or_(*[DocumentChunk.text.ilike(f"%{term}%") for term in terms]))
         rows = (await db.execute(statement.limit(limit * 3))).scalars().all()
