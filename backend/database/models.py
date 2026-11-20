@@ -155,3 +155,18 @@ class ProcessingJob(Base):
     created_at: Mapped[datetime.datetime] = mapped_column(DateTime, server_default=func.now())
 
     paper_rel: Mapped[Optional["Paper"]] = relationship("Paper", back_populates="processing_jobs")
+
+
+class DocumentChunk(Base):
+    """Durable evidence chunks used by lexical retrieval and citation rendering."""
+    __tablename__ = "document_chunks"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    chunk_id: Mapped[str] = mapped_column(String(192), unique=True, nullable=False, index=True)
+    paper_id: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
+    text: Mapped[str] = mapped_column(Text, nullable=False)
+    chunk_index: Mapped[int] = mapped_column(Integer, nullable=False)
+    section: Mapped[Optional[str]] = mapped_column(String(128), nullable=True)
+    page: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
+    strategy: Mapped[str] = mapped_column(String(64), nullable=False, default="section-aware")
+    created_at: Mapped[datetime.datetime] = mapped_column(DateTime, server_default=func.now())
