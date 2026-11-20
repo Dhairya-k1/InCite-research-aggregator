@@ -7,6 +7,7 @@ from backend.database.models import Paper
 from backend.api.schemas import RAGResponse, RAGSource
 from backend.services.evidence_service import evidence_service
 from backend.services.retrieval_service import retrieval_service
+from backend.costs import UsageEvent, cost_tracker
 
 
 class RAGService:
@@ -52,6 +53,12 @@ class RAGService:
                 )
                 if response.text:
                     answer_text = response.text.strip()
+                usage = getattr(response, "usage_metadata", None)
+                cost_tracker.record(UsageEvent(
+                    provider="gemini", operation="chat",
+                    input_tokens=int(getattr(usage, "prompt_token_count", 0) or 0) if usage else 0,
+                    output_tokens=int(getattr(usage, "candidates_token_count", 0) or 0) if usage else 0,
+                ))
             except Exception:
                 # Retrieval remains useful if an API quota/model is unavailable.
                 pass
