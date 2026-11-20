@@ -33,8 +33,17 @@ class ProcessingService:
         if version:
             version.storage_path = str(path)
         await db.commit()
+        indexing = {"status": "skipped", "reason": "GEMINI_API_KEY is not configured"}
+        try:
+            import os
+            if os.getenv("GEMINI_API_KEY"):
+                from backend.services.indexing_service import indexing_service
+                indexed = await indexing_service.index_paper(db, paper_id)
+                indexing = {"status": "completed", **indexed}
+        except Exception as exc:
+            indexing = {"status": "failed", "error": str(exc)}
         return {"paper_id": paper.paper_id, "pdf_url": pdf_url, "path": str(path),
-                "chunks": len(chunks), "new_chunks": saved}
+                "chunks": len(chunks), "new_chunks": saved, "indexing": indexing}
 
     @staticmethod
     def _default_pdf_url(paper: Paper) -> str:
