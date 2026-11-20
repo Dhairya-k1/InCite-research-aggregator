@@ -13,6 +13,8 @@ from backend.api.search import router as search_router
 from backend.api.chat import router as chat_router
 from backend.api.ingestion import router as ingestion_router
 from backend.api.evidence import router as evidence_router
+from backend.api.health import router as health_router
+from backend.observability import observe_request
 
 logging.basicConfig(
     level=logging.INFO,
@@ -95,6 +97,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.middleware("http")(observe_request)
 
 # Endpoints:
 # GET  /papers
@@ -108,6 +111,7 @@ app.include_router(search_router)
 app.include_router(chat_router)
 app.include_router(ingestion_router)
 app.include_router(evidence_router)
+app.include_router(health_router)
 
 
 if __name__ == "__main__":
