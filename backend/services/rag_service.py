@@ -6,6 +6,7 @@ from sqlalchemy import select
 from backend.database.models import Paper
 from backend.api.schemas import RAGResponse, RAGSource
 from backend.services.evidence_service import evidence_service
+from backend.services.retrieval_service import retrieval_service
 
 
 class RAGService:
@@ -17,7 +18,10 @@ class RAGService:
         query: str,
         paper_id: Optional[str] = None
     ) -> RAGResponse:
-        evidence = await evidence_service.search(db, query, limit=6, paper_id=paper_id)
+        retrieval = await retrieval_service.search(db, query, limit=6)
+        evidence = retrieval["results"]
+        if paper_id:
+            evidence = [item for item in evidence if item.get("paper_id") == paper_id]
         if not evidence:
             return RAGResponse(
                 answer="I could not find indexed evidence for this question. Ingest and process the relevant paper PDF first.",

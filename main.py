@@ -15,6 +15,8 @@ from backend.api.ingestion import router as ingestion_router
 from backend.api.evidence import router as evidence_router
 from backend.api.health import router as health_router
 from backend.api.processing import router as processing_router
+from backend.api.indexing import router as indexing_router
+from backend.api.retrieval import router as retrieval_router
 from backend.observability import observe_request
 
 logging.basicConfig(
@@ -114,6 +116,8 @@ app.include_router(ingestion_router)
 app.include_router(evidence_router)
 app.include_router(health_router)
 app.include_router(processing_router)
+app.include_router(indexing_router)
+app.include_router(retrieval_router)
 
 
 if __name__ == "__main__":
