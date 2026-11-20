@@ -1,3 +1,4 @@
+import os
 from qdrant_client import QdrantClient
 from qdrant_client.http.models import Distance, VectorParams, PointStruct, Filter, FieldCondition, MatchValue
 from typing import List, Dict, Any
@@ -11,8 +12,8 @@ class VectorDatabase:
     Configured for local storage during development.
     """
     def __init__(self, collection_name: str = "research_papers"):
-        # Uses local storage path for development
-        self.client = QdrantClient(path="./local_qdrant_storage")
+        qdrant_url = os.getenv("QDRANT_URL")
+        self.client = QdrantClient(url=qdrant_url) if qdrant_url else QdrantClient(path="./local_qdrant_storage")
         self.collection_name = collection_name
         self.embedder = GeminiEmbedder()
         self._ensure_collection()
