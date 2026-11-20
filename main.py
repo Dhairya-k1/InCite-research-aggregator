@@ -14,6 +14,7 @@ from backend.api.chat import router as chat_router
 from backend.api.ingestion import router as ingestion_router
 from backend.api.evidence import router as evidence_router
 from backend.api.health import router as health_router
+from backend.api.processing import router as processing_router
 from backend.observability import observe_request
 
 logging.basicConfig(
@@ -112,6 +113,7 @@ app.include_router(chat_router)
 app.include_router(ingestion_router)
 app.include_router(evidence_router)
 app.include_router(health_router)
+app.include_router(processing_router)
 
 
 if __name__ == "__main__":
